@@ -5,11 +5,11 @@
 ## 功能展示
 
 ```
-![生成界面](https://example.com/path/to/generation.png)
+![生成界面](https://github.com/iPhone38/CQG/blob/main/asset/generation.png)
 ```
 
 ```
-![预测界面](https://example.com/path/to/prediction.png)
+![预测界面](https://github.com/iPhone38/CQG/blob/main/asset/prediction.png)
 ```
 
 ## 功能特点
