@@ -2,6 +2,16 @@
 
 一个基于DeepSeek API的判断题生成与多模型预测系统，能够生成易错判断题并预测不同年级学生的答题正确率。
 
+## 功能展示
+
+```
+![生成界面](https://example.com/path/to/generation.png)
+```
+
+```
+![预测界面](https://example.com/path/to/prediction.png)
+```
+
 ## 功能特点
 
 * 🎯 生成具有迷惑性的易错判断题
