@@ -4,16 +4,21 @@ import requests
 import json
 import re
 import random
-from dotenv import load_dotenv
+
+# 尝试导入和加载环境变量，如果失败则继续（允许手动输入）
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    # 如果 python-dotenv 未安装，继续运行但不加载 .env 文件
+    print("警告: python-dotenv 未安装，无法自动加载 .env 文件。请手动输入API密钥或安装依赖: pip install python-dotenv")
+
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
                              QLabel, QTextEdit, QLineEdit, QPushButton, QSpinBox, 
                              QTabWidget, QGroupBox, QScrollArea, QFrame, QProgressBar,
                              QSplitter, QTableWidget, QTableWidgetItem, QHeaderView)
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
 from PyQt5.QtGui import QFont, QPalette, QColor
-
-# 加载环境变量
-load_dotenv()
 
 class DeepSeekWorker(QThread):
     """后台工作线程，用于处理DeepSeek API调用"""
@@ -379,8 +384,8 @@ class JudgmentQuestionUI(QMainWindow):
         
         # 尝试从环境变量加载API密钥
         env_api_key = os.getenv('DEEPSEEK_API_KEY')
-        if env_api_key:
-            self.api_key_input.setText(env_api_key)
+        if env_api_key and env_api_key.strip():
+            self.api_key_input.setText(env_api_key.strip())
         
         api_layout.addWidget(self.api_key_input)
         api_group.setLayout(api_layout)
