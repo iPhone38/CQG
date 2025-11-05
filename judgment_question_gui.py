@@ -4,12 +4,16 @@ import requests
 import json
 import re
 import random
+from dotenv import load_dotenv
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
                              QLabel, QTextEdit, QLineEdit, QPushButton, QSpinBox, 
                              QTabWidget, QGroupBox, QScrollArea, QFrame, QProgressBar,
                              QSplitter, QTableWidget, QTableWidgetItem, QHeaderView)
 from PyQt5.QtCore import Qt, QThread, pyqtSignal
 from PyQt5.QtGui import QFont, QPalette, QColor
+
+# 加载环境变量
+load_dotenv()
 
 class DeepSeekWorker(QThread):
     """后台工作线程，用于处理DeepSeek API调用"""
@@ -372,6 +376,12 @@ class JudgmentQuestionUI(QMainWindow):
         self.api_key_input = QLineEdit()
         self.api_key_input.setEchoMode(QLineEdit.Password)
         self.api_key_input.setPlaceholderText("请输入您的API密钥")
+        
+        # 尝试从环境变量加载API密钥
+        env_api_key = os.getenv('DEEPSEEK_API_KEY')
+        if env_api_key:
+            self.api_key_input.setText(env_api_key)
+        
         api_layout.addWidget(self.api_key_input)
         api_group.setLayout(api_layout)
         input_layout.addWidget(api_group)
