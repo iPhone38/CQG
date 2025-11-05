@@ -4,6 +4,19 @@ import requests
 import json
 import re
 import random
+
+# 尝试导入和加载环境变量，如果失败则继续（允许手动输入）
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    # 如果 python-dotenv 未安装，继续运行但不加载 .env 文件
+    print("警告: python-dotenv 模块未找到。")
+    print("       请确认已正确安装依赖: pip install -r requirements.txt")
+    print("       程序将继续运行，但无法自动从 .env 文件加载API密钥。")
+    print("       您仍可以在GUI界面中手动输入API密钥。")
+
+
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, 
                              QLabel, QTextEdit, QLineEdit, QPushButton, QSpinBox, 
                              QTabWidget, QGroupBox, QScrollArea, QFrame, QProgressBar,
@@ -372,6 +385,12 @@ class JudgmentQuestionUI(QMainWindow):
         self.api_key_input = QLineEdit()
         self.api_key_input.setEchoMode(QLineEdit.Password)
         self.api_key_input.setPlaceholderText("请输入您的API密钥")
+        
+        # 尝试从环境变量加载API密钥
+        env_api_key = os.getenv('DEEPSEEK_API_KEY')
+        if env_api_key and env_api_key.strip():
+            self.api_key_input.setText(env_api_key.strip())
+        
         api_layout.addWidget(self.api_key_input)
         api_group.setLayout(api_layout)
         input_layout.addWidget(api_group)
